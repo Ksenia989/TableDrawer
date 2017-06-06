@@ -1,3 +1,5 @@
+package TableModul;
+
 public class Cell {
     private String value;
     private int sizeValue;

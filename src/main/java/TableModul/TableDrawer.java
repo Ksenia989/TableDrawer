@@ -1,26 +1,21 @@
 package TableModul;
+
+import Input.Step;
+import Parts.Function;
+import Parts.ValuesCalculator;
+
 import java.util.*;
 
-
-public class Table {
+public class TableDrawer {
     private static final int INDENTATION = 2; // отступы по бокам
     private TableHeader tableHeader;
     private List<Column> columns;
-    private Basement basement;
 
     private int maxLength; // Максимальная длинна значений
     private int widthTable;
     private HashMap<Column, Integer> widthColumns;
 
-    public Table(TableHeader tableHeader, List<Column> columns, Basement basement) {
-        this.tableHeader = tableHeader;
-        this.columns = columns;
-        this.basement = basement;
-        findMaxLength();
-        calcWidhtTableAndColumns();
-    }
-
-    public Table(TableHeader tableHeader, List<Column> columns) {
+    public TableDrawer(TableHeader tableHeader, List<Column> columns) {
         this.tableHeader = tableHeader;
         this.columns = columns;
         findMaxLength();
@@ -41,7 +36,7 @@ public class Table {
     public void calcWidhtTableAndColumns() {
         int sizebBetweenColumns = columns.size() - 1;
         int widthColumn = maxLength + 2 * INDENTATION;
-        int widthHeaderTitel = tableHeader.getHeaderTitel().length() + 2 * INDENTATION;
+        int widthHeaderTitel = tableHeader.getHeaderTitle().length() + 2 * INDENTATION;
         int widthAllColumns = widthColumn * columns.size() + sizebBetweenColumns;
         int width = widthHeaderTitel - columns.size() + 1; // общая ширина всех колонок
         widthColumns = new HashMap<>();
@@ -68,11 +63,11 @@ public class Table {
 
     public StringBuffer assemblyHeader() {
         StringBuffer head = new StringBuffer("╓");
-        int lenghtHeaderTitel = tableHeader.getHeaderTitel().length();
+        int lenghtHeaderTitel = tableHeader.getHeaderTitle().length();
         int leftBorder = (widthTable - lenghtHeaderTitel) / 2;
         int rightBorder = widthTable - leftBorder - lenghtHeaderTitel;
         head.append(setNSymbol(widthTable, "─") + "╖\n║");
-        head.append(setNSymbol(leftBorder, " ") + tableHeader.getHeaderTitel() +
+        head.append(setNSymbol(leftBorder, " ") + tableHeader.getHeaderTitle() +
                 setNSymbol(rightBorder, " ") + "║\n╟");
         for (Column column : columns) {
             head.append(setNSymbol(widthColumns.get(column), "─"));
@@ -159,5 +154,11 @@ public class Table {
         System.out.println(assemblyHeader());
         System.out.println(assemblyColumns());
         System.out.println(assemblyBasement());
+    }
+
+    public static void main(String[] args) throws Exception {
+        List<Column> list = new ArrayList<>();// todo
+        TableDrawer tableDrawer = new TableDrawer(new TableHeader("MyTable"), (new ValuesCalculator(new Function(), new Step())).getCalculatedValues());
+        tableDrawer.assemblyTable();
     }
 }

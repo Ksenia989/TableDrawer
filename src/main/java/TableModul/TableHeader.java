@@ -1,11 +1,13 @@
-public class TableHeader {
-    private String headerTitel;
+package TableModul;
 
-    public TableHeader(String headerTitel) {
-        this.headerTitel = headerTitel;
+public class TableHeader {
+    private String headerTitle;
+
+    public TableHeader(String headerTitle) {
+        this.headerTitle = headerTitle;
     }
 
-    public String getHeaderTitel() {
-        return headerTitel;
+    public String getHeaderTitle() {
+        return headerTitle;
     }
 }

@@ -1,31 +1,43 @@
 package Input;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
 
-public class InputRepeater implements Checker {
+public abstract class InputRepeater {
     public String userMessage;
-    Object data;
+    Integer data;
 
-    public InputRepeater(String message) {
+    public InputRepeater(String message) throws Exception {
         this.userMessage = message;
     }
 
-    public void inputRepeater() throws Exception {
-        while (true) {
-            System.out.println(userMessage);
-            read();
-        }
-    }
-
-    @Override
-    public boolean check(Object value) {
-        return value instanceof Integer;
-    }
-
-    public void read() throws Exception {
+    public void read() throws IOException {
+        System.out.println(userMessage);
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-        data = reader.read();
-        check(data);
+        data = Integer.parseInt(reader.readLine());
+        setValue(data);
+    }
+
+    abstract void setValue(int data);
+
+    public static void main(String[] args) throws Exception {
+        Step step = new Step();
+        SymbolsAfterComma symbolsAfterComma = new SymbolsAfterComma();
+        Bounds leftBound = new LeftBound();
+        Bounds rightBound = new RightBound();
+
+        try {
+            symbolsAfterComma.setSymbolsAfterComma();
+            step.setStep();
+            leftBound.setBound();
+            rightBound.setBound();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        System.out.println("symbolsAfterComma = " + symbolsAfterComma.getSymbolsAfterComma());
+        System.out.println("step = " + step.getStep());
+        System.out.println("rightBound = " + rightBound.getBound());
+        System.out.println("leftBound = " + leftBound.getBound());
     }
 }

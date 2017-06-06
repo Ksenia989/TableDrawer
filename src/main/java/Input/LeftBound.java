@@ -1,16 +1,17 @@
 package Input;
 
-public class Bounds extends InputRepeater{
-    private static final String message = "Введите интервал A и B: ";
-    private int leftBound;
-    private int rightBound;
+import java.io.IOException;
 
-    public Bounds() throws Exception {
+public class LeftBound extends Bounds{
+    private static final String message = "Введите левую границу ";
+    private int leftBound;
+
+    public LeftBound() throws Exception {
         super(message);
     }
 
-    public void setBounds() throws Exception {
-        super.read();
+    @Override
+    public void setBound() throws IOException {
         super.read();
     }
 
@@ -18,19 +19,8 @@ public class Bounds extends InputRepeater{
         this.leftBound = data;
     }
 
-    public void setLeftBound(int leftBound) {
-        this.leftBound = leftBound;
-    }
-
-    public void setRightBound(int rightBound) {
-        this.rightBound = rightBound;
-    }
-
-    public int getLeftBound() {
-        return leftBound;
-    }
-
-    public int getRightBound() {
-        return rightBound;
+    @Override
+    public int getBound() {
+        return this.leftBound;
     }
 }

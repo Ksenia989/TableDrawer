@@ -2,17 +2,22 @@ package Input;
 
 public class SymbolsAfterComma extends InputRepeater {
     private static final String message = "Введите количество символов после запятой: ";
-    private int symbolsAfrreComma;
+    private int symbolsAfrerComma;
 
-    public SymbolsAfterComma() {
+    public SymbolsAfterComma() throws Exception {
         super(message);
     }
 
-    public void setStep(int step) {
-        this.symbolsAfrreComma = step;
+    public void setSymbolsAfterComma() throws Exception {
+        super.read();
     }
 
-    public int getStep() {
-        return symbolsAfrreComma;
+    @Override
+    void setValue(int data) {
+        this.symbolsAfrerComma = data;
+    }
+
+    public int getSymbolsAfterComma() {
+        return symbolsAfrerComma;
     }
 }
