@@ -1,4 +1,6 @@
+package TableModul;
 import java.util.*;
+
 
 public class Table {
     private static final int INDENTATION = 2; // отступы по бокам
@@ -153,23 +155,9 @@ public class Table {
         return columns.get(indexLastColumn) == column;
     }
 
-
-    public static void main(String[] args) {
-        List<Column> columns = new ArrayList<Column>();
-        ArrayList<Double> col1 = new ArrayList<>();
-        ArrayList<Double> col2 = new ArrayList<>();
-        ArrayList<Double> col3 = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
-            col1.add(i + 3.4334343434343431);
-            col2.add(i + 6.74343434343434);
-            col3.add(i + 1.04777777756756664765675645747645765475647654643434343);
-        }
-        columns.add(new Column("X", col3));
-        columns.add(new Column("X", col3));
-        columns.add(new Column("X", col3));
-        Table table = new Table(new TableHeader("Т"), columns);
-        System.out.println(table.assemblyHeader());
-        System.out.println(table.assemblyColumns());
-        System.out.println(table.assemblyBasement());
+    public void assemblyTable() {
+        System.out.println(assemblyHeader());
+        System.out.println(assemblyColumns());
+        System.out.println(assemblyBasement());
     }
 }
