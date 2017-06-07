@@ -17,7 +17,7 @@ public class ValuesCalculator {
         this.step = 1;//step.getStep();//TODO: заменять 0.5 На step
     }
 
-    List setValuesInList() {
+    public List setValuesInList() {
         int listIndex = 0;
         for (double i = Function.LEFT_BOARD; i <= Function.RIGHT_BOARD; i = i + step, listIndex++) {// step = 1;
             listOfValues.add(listIndex, i);
@@ -38,7 +38,7 @@ public class ValuesCalculator {
     }
 
     private int indexOfElement = 0;
-    List valuesCalculator() {
+    public List valuesCalculator() {
         for (int i = 0; i < parts.size(); i++) {
             calculateValueForOneElement(i);
         }
@@ -46,7 +46,7 @@ public class ValuesCalculator {
         return calculatedValues;
     }
 
-    void calculateValueForOneElement(int indexOfElementForCalculation){
+    private void calculateValueForOneElement(int indexOfElementForCalculation){
          Part currentPart = parts.get(indexOfElementForCalculation);
          for(double i = currentPart.getLeftBoard(); i < currentPart.getRightBoard(); i+= step){
              calculatedValues.add(indexOfElement, currentPart.calculateY(i));
@@ -56,5 +56,9 @@ public class ValuesCalculator {
 
     public List<Double> getCalculatedValues() {
         return calculatedValues;
+    }
+
+    public List<Double> getListOfYValues() {
+        return listOfValues;
     }
 }
