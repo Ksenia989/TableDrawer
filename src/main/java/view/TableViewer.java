@@ -10,7 +10,7 @@ public class TableViewer {
         Step step = new Step();
         SymbolsAfterComma symbolsAfterComma = new SymbolsAfterComma();
         Bounds leftBound = new LeftBound();
-        Bounds rightBound = new RightBound();// todo нигдед не используются
+        Bounds rightBound = new RightBound();
 
         try {
             symbolsAfterComma.setSymbolsAfterComma();

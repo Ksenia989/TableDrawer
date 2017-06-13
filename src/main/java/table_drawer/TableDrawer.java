@@ -43,24 +43,32 @@ public class TableDrawer {
     }
 
     private String drawValues() {
-        StringBuilder stringValues = new StringBuilder("║");
+        StringBuilder stringValues = new StringBuilder();
         for (int i = 0; i < columns[0].size(); i++) {
             stringValues.append(drawValuesForColumns());
-            stringValues.append("║\n");
+            stringValues.append("║");
+            stringValues.append('\n');//todo
+            stringValues.append(drawEmptyLine());
         }
-        return stringValues.append('\n').toString();
+        stringValues.append('\n');
+        return stringValues.toString();
     }
 
     private int index = 0;
     private String drawValuesForColumns() {
         StringBuilder stringValues = new StringBuilder();
+        stringValues.append("║");
+        appendIntendation(stringValues);
         int i;
         for (i = 0; i < calculateColumnsValue(); i++) {// прогон по каждой колонке
             stringValues.append(printFormattedValue(columns[i].get(index)));// по определённому элементу
-            stringValues.append("┼");
+            stringValues.append('\t');
+            if (i < calculateColumnsValue() - 1) {
+                stringValues.append("║");
+                appendIntendation(stringValues);
+            }
         }
         index++;
-        stringValues.append("┼");
         return stringValues.toString();
 
     }
@@ -92,9 +100,10 @@ public class TableDrawer {
         return foundation.toString();
     }
 
+    int i;
     String drawEmptyLine() {
         StringBuilder line = new StringBuilder("╟");
-        for (int i = 0; i < calculateColumnsValue(); i++) {
+        for (i = 0; i < calculateColumnsValue(); i++) {
             line.append(drawEmptyLineForOneColumn());
         }
         line.append("╢");
@@ -103,11 +112,11 @@ public class TableDrawer {
 
     private String drawEmptyLineForOneColumn() {
         StringBuilder line = new StringBuilder();
-        int symbolsForPartOfTable = calculateSymbols() / 2 - 2;//todo - write description
+        int symbolsForPartOfTable = calculateSymbols() / 2 - 1;
         for (int i = 0; i < symbolsForPartOfTable; i++) {
             line.append("─");
         }
-        line.append("┼");
+        if (i < calculateColumnsValue() - 1) {line.append("╫");}
         return line.toString();
     }
 
@@ -117,7 +126,13 @@ public class TableDrawer {
 
     int calculateSymbols() {
         //TODO: учитывать заголовок и отступы и количество колонок
-        return 20;
+        return (7 + symbolsAfterComma) * 2;
+    }
+
+    void appendIntendation(StringBuilder stringBuilder){
+        for (int i = 0; i < EDGE_INTENDATION; i++) {
+            stringBuilder.append(' ');
+        }
     }
 
     int calculateColumnsValue() {
