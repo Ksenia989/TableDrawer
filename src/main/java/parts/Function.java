@@ -4,13 +4,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Function {
-    public static final int LEFT_BOARD = -8;// todo а если ещё захочешь кусочки добавить?
-    public static final int RIGHT_BOARD = 10;
+    static int LEFT_BOARD;
+    static int RIGHT_BOARD;
     private List<Part> parts = new ArrayList<>();
 
-    public Function() {
+    public Function(int LEFT_BOARD, int RIGHT_BOARD) {
         PartsInitializer partsInitializer = new PartsInitializer();
         this.parts = partsInitializer.getPartList();
+        this.LEFT_BOARD = LEFT_BOARD;
+        this.RIGHT_BOARD = RIGHT_BOARD;
     }
 
     public List<Part> getParts() {

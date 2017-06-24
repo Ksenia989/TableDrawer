@@ -19,27 +19,33 @@ public class ValuesCalculator {
 
     public List setValuesInList() {
         int listIndex = 0;
-        for (double i = Function.LEFT_BOARD; i <= Function.RIGHT_BOARD; i = i + step, listIndex++) {// step = 1;
+        for (double i = Function.LEFT_BOARD; i <= Function.RIGHT_BOARD; i = i + step, listIndex++) {
             listOfValues.add(listIndex, i);
         }
         return listOfValues;
     }
 
-    private int indexOfElement = 0;
-    public List valuesCalculator() {
-        for (int i = 0; i < parts.size(); i++) {
-            calculateValueForOneElement(i);
+    public List valuesCalculator(){
+        int indexOfTablePartForValue;
+        for (int i = 0; i < listOfValues.size(); i++) {
+            indexOfTablePartForValue = calculateIndexOfTablePart(i);
+            calculatedValues.add(calculateValueForOneElement(listOfValues.get(i), indexOfTablePartForValue));
         }
-        calculatedValues.add(indexOfElement, parts.get(parts.size() - 1).calculateY(parts.get(parts.size() - 1).getRightBoard()));
         return calculatedValues;
     }
 
-    private void calculateValueForOneElement(int indexOfElementForCalculation){
-         Part currentPart = parts.get(indexOfElementForCalculation);
-         for(double i = currentPart.getLeftBoard(); i < currentPart.getRightBoard(); i+= step){
-             calculatedValues.add(indexOfElement, currentPart.calculateY(i));
-             indexOfElement++;
-         }
+    private double calculateValueForOneElement(double xValue, int partIndex) {
+        return parts.get(partIndex).calculateY(xValue);
+    }
+
+    private int calculateIndexOfTablePart(int index){
+        int calculatedIndex = 0;
+        for (int i = 0; i < parts.size(); i++) {
+            if (listOfValues.get(index) > parts.get(i).getLeftBoard() && listOfValues.get(index) <= parts.get(i).getRightBoard()) {
+                calculatedIndex = i;
+            }
+        }
+        return calculatedIndex;
     }
 
     public List<Double> getCalculatedValues() {
